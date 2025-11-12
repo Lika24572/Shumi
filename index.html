@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Михаэль Шумахер - Легенда Формулы 1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #FF1E00;
+            --secondary: #1A1A2E;
+            --accent: #00D4FF;
+            --dark: #0F0F1B;
+            --light: #E8F1F5;
+            --gold: #FFD700;
+            --silver: #C0C0C0;
+            --success: #00C853;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+            color: var(--light);
+            font-family: 'Exo 2', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Навигация */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 27, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.2rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 30, 0, 0.3);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 0 10px rgba(255, 30, 0, 0.5);
+        }
+        
+        .logo i {
+            margin-right: 12px;
+            animation: pulse 2s infinite;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+            font-size: 1.1rem;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            color: var(--accent);
+        }
+        
+        /* Главный контейнер */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Страницы */
+        .page {
+            min-height: 100vh;
+            padding-top: 80px;
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Главная страница */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 50%, rgba(255, 30, 0, 0.15) 0%, rgba(15, 15, 27, 0.9) 70%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            max-width: 650px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 1s ease, textShine 4s infinite;
+            line-height: 1.1;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            animation: fadeInUp 1s ease 0.2s both;
+            color: rgba(232, 241, 245, 0.9);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, #FF4500 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+            overflow: hidden;
+            position: relative;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(255, 30, 0, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn i {
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 30, 0, 0.5);
+        }
+        
+        .btn:hover i {
+            transform: translateX(5px);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .btn:hover::after {
+            left: 100%;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55%;
+            height: 75%;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Michael_Schumacher_2005_Malaysia.jpg/800px-Michael_Schumacher_2005_Malaysia.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            animation: fadeInRight 1.5s ease, float 8s ease-in-out infinite;
+            filter: grayscale(0.1) contrast(1.1) brightness(1.05);
+            z-index: 1;
+            border: 2px solid rgba(255, 30, 0, 0.2);
+        }
+        
+        /* Секции */
+        .section {
+            padding: 6rem 0;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            color: var(--light);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            animation: expandWidth 2s ease;
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            font-size: 1.2rem;
+            color: rgba(232, 241, 245, 0.8);
+            line-height: 1.7;
+        }
+        
+        /* Карьера */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            transform: translateX(-50%);
+            animation: drawLine 2s ease;
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            margin-bottom: 4rem;
+            position: relative;
+            width: 50%;
+            padding: 0 2.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+        
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            background: linear-gradient(135deg, rgba(42, 42, 62, 0.8) 0%, rgba(26, 26, 46, 0.9) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 15px var(--accent);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -10px;
+        }
+        
+        .timeline-year {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .timeline-year i {
+            margin-right: 10px;
+        }
+        
+        .timeline-content h3 {
+            margin-bottom: 1.2rem;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        
+        .timeline-content p {
+            margin-bottom: 1rem;
+            color: rgba(232, 241, 245, 0.9);
+        }
+        
+        /* Достижения */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .achievement-card {
+            background: linear-gradient(135deg, rgba(42, 42, 62, 0.8) 0%, rgba(26, 26, 46, 0.9) 100%);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+            border-top: 4px solid var(--primary);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 30, 0, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .achievement-card:hover::before {
+            opacity: 1;
+        }
+        
+        .achievement-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .achievement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .achievement-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            animation: bounce 2s infinite;
+        }
+        
+        .achievement-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--gold);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .achievement-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            color: var(--light);
+        }
+        
+        .achievement-card p {
+            color: rgba(232, 241, 245, 0.8);
+        }
+        
+        .stats-section {
+            margin-top: 5rem;
+            background: linear-gradient(135deg, rgba(42, 42, 62, 0.8) 0%, rgba(26, 26, 46, 0.9) 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: rgba(15, 15, 27, 0.5);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .stat-label {
+            color: rgba(232, 241, 245, 0.8);
+            font-size: 1.1rem;
+        }
+        
+        /* Наследие */
+        .legacy-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .legacy-text {
+            background: linear-gradient(135deg, rgba(42, 42, 62, 0.8) 0%, rgba(26, 26, 46, 0.9) 100%);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin-bottom: 2.5rem;
+            border-left: 5px solid var(--primary);
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .legacy-text.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .legacy-text:nth-child(even) {
+            transform: translateX(30px);
+            border-left: none;
+            border-right: 5px solid var(--accent);
+        }
+        
+        .legacy-text:nth-child(even).visible {
+            transform: translateX(0);
+        }
+        
+        .quote {
+            font-style: italic;
+            text-align: center;
+            margin: 3rem 0;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 30, 0, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border-radius: 15px;
+            position: relative;
+            font-size: 1.3rem;
+            border: 1px solid rgba(255, 30, 0, 0.2);
+        }
+        
+        .quote::before, .quote::after {
+            content: '"';
+            font-size: 4rem;
+            color: var(--primary);
+            position: absolute;
+            opacity: 0.7;
+        }
+        
+        .quote::before {
+            top: 10px;
+            left: 20px;
+        }
+        
+        .quote::after {
+            bottom: 10px;
+            right: 20px;
+        }
+        
+        /* Новые секции */
+        .records-section {
+            background: linear-gradient(135deg, rgba(42, 42, 62, 0.8) 0%, rgba(26, 26, 46, 0.9) 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 4rem 0;
+            border: 1px solid rgba(255, 30, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .record-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: background 0.3s ease;
+            border-radius: 5px;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        .record-item:hover {
+            background: rgba(255, 30, 0, 0.05);
+        }
+        
+        .record-item:last-child {
+            border-bottom: none;
+        }
+        
+        .record-title {
+            font-weight: 600;
+            color: var(--light);
+            font-size: 1.1rem;
+        }
+        
+        .record-value {
+            font-weight: 700;
+            color: var(--gold);
+            font-size: 1.4rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .team-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+        
+        .team-card {
+            background: linear-gradient(135deg, rgba(42, 42, 62, 0.8) 0%, rgba(26, 26, 46, 0.9) 100%);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .team-logo {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .team-card h3 {
+            margin-bottom: 1rem;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        
+        .team-card p {
+            margin-bottom: 0.5rem;
+            color: rgba(232, 241, 245, 0.9);
+        }
+        
+        /* Футер */
+        footer {
+            background: linear-gradient(135deg, var(--secondary) 0%, #0A0A14 100%);
+            padding: 4rem 0 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 30, 0, 0.3);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-link {
+            margin: 0 1.5rem;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            background: rgba(15, 15, 27, 0.5);
+            font-weight: 600;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent);
+            transform: translateY(-5px);
+            background: rgba(255, 30, 0, 0.1);
+        }
+        
+        .footer-link i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            color: rgba(232, 241, 245, 0.7);
+            font-size: 1rem;
+        }
+        
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px) translateY(-50%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) translateY(-50%);
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes textShine {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(-50%) translateX(0);
+            }
+            50% {
+                transform: translateY(-53%) translateX(5px);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(0, 212, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-7px);
+            }
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes expandWidth {
+            from {
+                width: 0;
+            }
+            to {
+                width: 120px;
+            }
+        }
+        
+        @keyframes drawLine {
+            from {
+                height: 0;
+            }
+            to {
+                height: 100%;
+            }
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero-image {
+                width: 50%;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 80px;
+                padding-right: 0;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-content::after {
+                left: -10px !important;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(15, 15, 27, 0.98);
+                flex-direction: column;
+                padding: 1.5rem 0;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 1.2rem 2rem;
+                font-size: 1.2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                height: auto;
+                min-height: 100vh;
+                padding: 2rem 0;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+                margin-bottom: 3rem;
+            }
+            
+            .hero-image {
+                position: relative;
+                width: 100%;
+                height: 400px;
+                margin-top: 2rem;
+                transform: none;
+                top: 0;
+                animation: fadeInUp 1.5s ease, float 8s ease-in-out infinite;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-link {
+                margin: 0.5rem 0;
+                width: 80%;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .team-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .record-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .record-value {
+                margin-top: 0.5rem;
+                font-size: 1.2rem;
+            }
+            
+            .timeline-content, .legacy-text, .achievement-card, .team-card {
+                padding: 1.5rem;
+            }
+            
+            .quote {
+                padding: 2rem 1.5rem;
+                font-size: 1.1rem;
+            }
+            
+            .nav-container {
+                padding: 0 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-flag-checkered"></i> SCHUMACHER</div>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link" data-page="home">Главная</a></li>
+                <li><a href="#" class="nav-link" data-page="career">Карьера</a></li>
+                <li><a href="#" class="nav-link" data-page="achievements">Достижения</a></li>
+                <li><a href="#" class="nav-link" data-page="legacy">Наследие</a></li>
+                <li><a href="#" class="nav-link" data-page="records">Рекорды</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Главная страница -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>МИХАЭЛЬ ШУМАХЕР</h1>
+                    <p>Семикратный чемпион мира Формулы-1, легенда автоспорта и один из величайших гонщиков в истории. Немецкий пилот, известный своей невероятной волей к победе, трудолюбием и революционным подходом к подготовке.</p>
+                    <p>Шумахер установил множество рекордов, которые оставались непобитыми долгие годы. Его карьера охватывала периоды доминирования в командах Benetton и Ferrari, где он стал настоящей иконой итальянской команды.</p>
+                    <p>В 2025 году наследие Михаэля Шумахера продолжает вдохновлять новое поколение гонщиков, а его имя остается синонимом совершенства в автоспорте.</p>
+                    <a href="#" class="btn nav-link" data-page="career">Узнать больше <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="hero-image"></div>
+        </div>
+    </section>
+
+    <!-- Карьера -->
+    <section id="career" class="page">
+        <div class="container">
+            <div class="section">
+                <h2 class="section-title">КАРЬЕРА</h2>
+                <p class="section-subtitle">Путь Михаэля Шумахера в Формуле-1 - это история невероятной трансформации от талантливого новичка до величайшего гонщика всех времен. Каждый этап его карьеры был отмечен уникальными достижениями.</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year"><i class="fas fa-calendar-alt"></i> 1991-1995</div>
+                            <h3>Ранние годы и первые успехи</h3>
+                            <p>Дебютировал в Формуле-1 за команду Jordan на Гран-при Бельгии в 1991 году, где сразу произвел впечатление, квалифицировавшись седьмым. Уже на следующей гонке перешел в Benetton, где начал раскрывать свой потенциал.</p>
+                            <p>В 1994 году Шумахер завоевал свой первый чемпионский титул в драматичном противостоянии с Деймоном Хиллом. Год спустя он подтвердил свой статус, выиграв второй титул с большим преимуществом.</p>
+                            <p>Эти годы показали не только его скорость, но и умение выигрывать в сложных условиях, что стало визитной карточкой Шумахера на протяжении всей карьеры.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year"><i class="fas fa-calendar-alt"></i> 1996-2006</div>
+                            <h3>Ferrari - Эра доминирования</h3>
+                            <p>Перешёл в Ferrari в 1996 году, когда команда переживала не лучшие времена. Шумахер стал катализатором изменений, которые привели к беспрецедентной эре доминирования.</p>
+                            <p>С 2000 по 2004 год Шумахер выиграл пять чемпионских титулов подряд, установив абсолютный рекорд. В этот период Ferrari выиграла шесть Кубков конструкторов, а Шумахер стал настоящей иконой для тифози.</p>
+                            <p>Его партнерство с техническим директором Россом Брауном и главным дизайнером Рори Бирном создало одну из самых успешных команд в истории спорта. Шумахер не только показывал выдающиеся результаты на трассе, но и активно участвовал в развитии автомобиля.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year"><i class="fas fa-calendar-alt"></i> 2007-2009</div>
+                            <h3>Первый уход из спорта</h3>
+                            <p>После сезона 2006 года Шумахер принял решение завершить карьеру, оставаясь в Ferrari в качестве советника. Этот период стал временем перемен в Формуле-1, но имя Шумахера продолжало ассоциироваться с высшими достижениями.</p>
+                            <p>В 2009 году он планировал вернуться в качестве замены травмированного Фелипе Массы, но отменил возвращение из-за проблем со здоровьем. Тем не менее, его связь с Ferrari оставалась крепкой, и он продолжал влиять на развитие команды.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year"><i class="fas fa-calendar-alt"></i> 2010-2012</div>
+                            <h3>Возвращение с Mercedes</h3>
+                            <p>В 2010 году Шумахер неожиданно вернулся в Формулу-1, подписав контракт с командой Mercedes. Его возвращение стало одним из самых громких событий в истории спорта.</p>
+                            <p>Хотя эти годы не были отмечены победами, Шумахер показал, что все еще обладает высокой скоростью и мастерством. Его опыт и знания помогли Mercedes заложить фундамент для будущих успехов.</p>
+                            <p>В 2012 году на Гран-при Европы Шумахер в последний раз поднялся на подиум, заняв третье место. Это выступление стало достойным завершением его невероятной карьеры в Формуле-1.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-section">
+                    <div class="team-card">
+                        <div class="team-logo"><i class="fas fa-horse-head"></i></div>
+                        <h3>Ferrari</h3>
+                        <p>1996-2006</p>
+                        <p>72 победы, 5 чемпионских титулов</p>
+                        <p>Самый успешный период в истории команды</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-logo"><i class="fas fa-leaf"></i></div>
+                        <h3>Benetton</h3>
+                        <p>1991-1995</p>
+                        <p>19 побед, 2 чемпионских титула</p>
+                        <p>Первые чемпионства в карьере</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-logo"><i class="fas fa-star"></i></div>
+                        <h3>Mercedes</h3>
+                        <p>2010-2012</p>
+                        <p>Возвращение в спорт</p>
+                        <p>Заложил основу для будущих успехов команды</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Достижения -->
+    <section id="achievements" class="page">
+        <div class="container">
+            <div class="section">
+                <h2 class="section-title">ДОСТИЖЕНИЯ</h2>
+                <p class="section-subtitle">Статистика Михаэля Шумахера говорит сама за себя - это беспрецедентная коллекция рекордов и титулов, многие из которых остаются непобитыми до сих пор.</p>
+                
+                <div class="achievements-grid">
+                    <div class="achievement-card">
+                        <div class="achievement-icon"><i class="fas fa-trophy"></i></div>
+                        <div class="achievement-number">7</div>
+                        <h3>Чемпионских титулов</h3>
+                        <p>Абсолютный рекорд в истории Формулы-1 (1994, 1995, 2000-2004)</p>
+                    </div>
+                    <div class="achievement-card">
+                        <div class="achievement-icon"><i class="fas fa-flag-checkered"></i></div>
+                        <div class="achievement-number">91</div>
+                        <h3>Победы в Гран-при</h3>
+                        <p>Рекорд, который был побит только Льюисом Хэмилтоном в 2020 году</p>
+                    </div>
+                    <div class="achievement-card">
+                        <div class="achievement-icon"><i class="fas fa-stopwatch"></i></div>
+                        <div class="achievement-number">68</div>
+                        <h3>Поулы</h3>
+                        <p>Второй результат в истории после Льюиса Хэмилтона</p>
+                    </div>
+                    <div class="achievement-card">
+                        <div class="achievement-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="achievement-number">77</div>
+                        <h3>Быстрых круга</h3>
+                        <p>Абсолютный рекорд в истории Формулы-1</p>
+                    </div>
+                </div>
+                
+                <div class="stats-section">
+                    <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--accent);">Другие ключевые статистические данные</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">155</div>
+                            <div class="stat-label">Подиума</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">1566</div>
+                            <div class="stat-label">Очков в карьере</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">308</div>
+                            <div class="stat-label">Стартов в Гран-при</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">15</div>
+                            <div class="stat-label">Сезонов с победами</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Подряд чемпионств</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">19</div>
+                            <div class="stat-label">Лет в Ф1</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 3rem; text-align: center;">
+                    <p>Шумахер установил рекорд по наибольшему количеству побед в одном сезоне (13 в 2004 году), который был побит только в 2016 году. Он также удерживает рекорд по количеству быстрых кругов (77) и делит рекорд по количеству чемпионских титулов (7) с Льюисом Хэмилтоном.</p>
+                    <p>Его достижения в Ferrari особенно впечатляют - 72 победы, 58 поулов и 5 подряд чемпионских титулов сделали его легендой не только Формулы-1, но и всего мирового спорта.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Рекорды -->
+    <section id="records" class="page">
+        <div class="container">
+            <div class="section">
+                <h2 class="section-title">РЕКОРДЫ</h2>
+                <p class="section-subtitle">Михаэль Шумахер установил множество рекордов, которые демонстрируют его невероятное доминирование в Формуле-1 на протяжении более чем десятилетия.</p>
+                
+                <div class="records-section">
+                    <div class="record-item">
+                        <div class="record-title">Наибольшее количество чемпионских титулов</div>
+                        <div class="record-value">7</div>
+                    </div>
+                    <div class="record-item">
+                        <div class="record-title">Наибольшее количество побед в одном сезоне (2004)</div>
+                        <div class="record-value">13</div>
+                    </div>
+                    <div class="record-item">
+                        <div class="record-title">Наибольшее количество подиумов в карьере</div>
+                        <div class="record-value">155</div>
+                    </div>
+                    <div class="record-item">
+                        <div class="record-title">Наибольшее количество быстрых кругов</div>
+                        <div class="record-value">77</div>
+                    </div>
+                    <div class="record-item">
+                        <div class="record-title">Наибольшее количество побед с одной командой (Ferrari)</div>
+                        <div class="record-value">72</div>
+                    </div>
+                    <div class="record-item">
+                        <div class="record-title">Наибольшее количество подряд чемпионских титулов</div>
+                        <div class="record-value">5</div>
+                    </div>
+                    <div class="record-item">
+                        <div class="record-title">Наибольшее количество очков в карьере</div>
+                        <div class="record-value">1566</div>
+                    </div>
+                    <div class="record-item">
+                        <div class="record-title">Наибольшее количество Гран-при с одним двигателем</div>
+                        <div class="record-value">6</div>
+                    </div>
+                </div>
+                
+                <div class="legacy-content">
+                    <div class="legacy-text">
+                        <h3 style="color: var(--accent); margin-bottom: 1rem;">Рекорды, которые остаются непобитыми</h3>
+                        <p>Несмотря на то, что некоторые рекорды Шумахера были побиты Льюисом Хэмилтоном, многие из них остаются актуальными и по сей день. В частности, рекорд по количеству быстрых кругов (77) и рекорд по количеству побед с одной командой (72 с Ferrari) демонстрируют его невероятное постоянство и доминирование.</p>
+                        <p>Рекорд по количеству подряд чемпионских титулов (5) также остается одним из самых впечатляющих достижений в истории спорта. Только Хуан-Мануэль Фанхио смог приблизиться к этому показателю в 1950-х годах.</p>
+                    </div>
+                    
+                    <div class="legacy-text">
+                        <h3 style="color: var(--accent); margin-bottom: 1rem;">Влияние на статистику Формулы-1</h3>
+                        <p>Шумахер не просто устанавливал рекорды - он менял саму статистику Формулы-1. До его появления многие показатели считались практически недостижимыми. Его карьера показала, что возможно доминировать в спорте на протяжении более чем десятилетия.</p>
+                        <p>Многие из его рекордов стали ориентиром для следующих поколений гонщиков. Льюис Хэмилтон, который побил многие рекорды Шумахера, неоднократно отмечал, что именно достижения немецкого гонщика вдохновляли его на собственные свершения.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Наследие -->
+    <section id="legacy" class="page">
+        <div class="container">
+            <div class="section">
+                <h2 class="section-title">НАСЛЕДИЕ</h2>
+                <p class="section-subtitle">Влияние Михаэля Шумахера на Формулу-1 и автоспорт в целом невозможно переоценить. Он изменил подход к гонкам, подготовке и работе в команде.</p>
+                
+                <div class="legacy-content">
+                    <div class="legacy-text">
+                        <h3 style="color: var(--accent); margin-bottom: 1rem;">Революция в подготовке гонщиков</h3>
+                        <p>Шумахер стал первым гонщиком, который подошел к автоспорту как к полноценной профессиональной деятельности. Его физическая подготовка, работа с командой и внимание к деталям установили новые стандарты для всех последующих поколений гонщиков.</p>
+                        <p>Он проводил бесчисленные часы на симуляторах, работал с инженерами над настройкой автомобиля и всегда был готов к дополнительным тестам. Такой подход был революционным для своего времени и впоследствии стал нормой в Формуле-1.</p>
+                        <p>Шумахер также изменил представление о роли гонщика в команде. Он был не просто пилотом, а активным участником разработки и совершенствования автомобиля, что особенно проявилось в годы его работы с Ferrari.</p>
+                    </div>
+                    
+                    <div class="legacy-text">
+                        <h3 style="color: var(--accent); margin-bottom: 1rem;">Благотворительность и влияние вне трассы</h3>
+                        <p>Вне трассы Шумахер был известен своей благотворительной деятельностью. Он пожертвовал миллионы долларов на помощь жертвам цунами в Юго-Восточной Азии в 2004 году и поддерживал различные гуманитарные проекты.</p>
+                        <p>После его трагической лыжной аварии в 2013 году, семья Шумахера сохранила его частную жизнь в тайне, что вызвало уважение со стороны фанатов и коллег. Его сын Мик продолжил семейную традицию, став гонщиком Формулы-1.</p>
+                        <p>В 2025 году наследие Шумахера продолжает жить через фонд его имени, который поддерживает образовательные и социальные проекты, а также программы безопасности в автоспорте.</p>
+                    </div>
+                    
+                    <div class="quote">
+                        "Когда ты выходишь на старт, ты должен верить, что ты лучший. И тогда ты не будешь бояться."
+                    </div>
+                    
+                    <div class="legacy-text">
+                        <h3 style="color: var(--accent); margin-bottom: 1rem;">Влияние на современный автоспорт</h3>
+                        <p>Подход Шумахера к гонкам изменил Формулу-1 навсегда. Его наследие можно увидеть в современной подготовке гонщиков, работе команд и даже в технических регламентах, которые были изменены в ответ на его доминирование.</p>
+                        <p>Многие из нынешних лидеров Формулы-1, включая Льюиса Хэмилтона и Себастьяна Феттеля, называли Шумахера своим вдохновением и образцом для подражания. Его влияние распространяется далеко за пределы его собственных достижений.</p>
+                        <p>В 2025 году имя Михаэля Шумахера остается символом совершенства, dedication и невероятной воли к победе. Его рекорды и достижения продолжают вдохновлять новое поколение гонщиков и напоминают о том, каких высот можно достичь благодаря таланту, трудолюбию и преданности своему делу.</p>
+                    </div>
+                    
+                    <div class="quote">
+                        "Я всегда стремлюсь быть лучшим, но я никогда не бываю удовлетворен. Всегда есть куда расти."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://t.me/likallk" class="footer-link"><i class="fab fa-telegram"></i> Telegram</a>
+                <a href="https://vk.com/likallk" class="footer-link"><i class="fab fa-vk"></i> VK</a>
+                <a href="mailto:likaorenburg@gmail.com" class="footer-link"><i class="fas fa-envelope"></i> Email</a>
+            </div>
+            <p class="copyright">© 2025 Михаэль Шумахер. Все права защищены. Сайт создан фанатом.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Навигация между страницами
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Скрыть все страницы
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Показать выбранную страницу
+                const pageId = this.getAttribute('data-page');
+                document.getElementById(pageId).classList.add('active');
+                
+                // Прокрутка к верху страницы
+                window.scrollTo(0, 0);
+                
+                // Закрыть мобильное меню
+                document.querySelector('.nav-links').classList.remove('active');
+                
+                // Запуск анимаций для новой страницы
+                setTimeout(animateOnScroll, 100);
+            });
+        });
+        
+        // Мобильное меню
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // Анимация появления элементов при прокрутке
+        const animateOnScroll = () => {
+            const fadeElements = document.querySelectorAll('.timeline-item, .achievement-card, .legacy-text');
+            
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            animateOnScroll();
+        });
+        
+        // Изменение навигации при прокрутке
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.padding = '0.8rem 0';
+                nav.style.background = 'rgba(15, 15, 27, 0.98)';
+            } else {
+                nav.style.padding = '1.2rem 0';
+                nav.style.background = 'rgba(15, 15, 27, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
